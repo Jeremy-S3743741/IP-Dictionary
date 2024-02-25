@@ -1,0 +1,129 @@
+#!\C:\Jeremy\Documents\Python IP Dictionary Program Walton_Jeremy
+#Jeremy Walton
+#2/25/2024
+#Python IP dictionary Program Walton_Jeremy
+
+def getDictionaries():
+#ip dictionary
+    routers = {
+             'Device' : "IP address",
+             'R1' : "10.10.10.1" , 
+             'R2' : "20.20.20.1" ,
+             'R3' : "30.30.30.1" ,}
+
+    switches = {
+             'S1' : "10.10.10.2" ,
+             'S2' : "10.10.10.3" ,
+             'S3' : "10.10.10.4" ,
+             'S4' : "10.10.10.5" ,
+             'S5' : "20.20.20.2" ,
+             'S6' : "20.20.20.3" ,
+             'S7' : "30.30.30.2" ,
+             'S8' : "30.30.30.3" ,
+             'S9' : "30.30.30.4" ,
+             }
+    print("Network Equipment Inventory\n")
+    print("\tequipment name\tIP address")
+    for router, ipa in routers.items():
+        print("\t" + router + "\t\t" + ipa)
+    for switch, ipa in switches.items():
+        print ("\t" + switch + "\t\t" + ipa)
+
+
+    user_device = ("Which device would you like to update(enter x to quit)?")
+
+    # compute exit prompt
+    while user_device.lower() != "x":
+        user_device = input("Which device would you like to update(enter x to quit)?")
+
+        
+        if user_device not in routers:
+            routers[user_device] = user_device
+
+        elif user_device not in switches:
+            switches[user_device] = user_device
+
+        else:
+            print("Invalid input, please enter a device from table above.")
+            break
+
+
+
+user_device = ("Which device would you like to update(enter x to quit)?")
+
+
+#accumulators
+updated_devices_count = 0
+invalidIPcount = 0
+
+#invalid IP  and updated device lists
+invalidIPipAddress = []
+updated_devices = []
+
+
+
+stopLOOP = False
+validIP = False
+
+#get the user's input and offer the option to quit
+#constants
+
+
+
+getDictionaries()   #Call the function to display the dictionaries
+
+
+
+
+
+
+
+#validate IP address
+def ipValidation():
+    """validate the IP address given"""""
+    while not validIP:
+        ipAddress = input("What is the new IP address(111.111.111.111)?")
+        octets = ipAddress.split('.')
+        if len(octets) == 4: 
+            for byte in octets:
+                byte = int(byte)
+                if byte < 0 or byte > 255:
+                    invalidIPcount += 1
+                    invalidIPipAddress.append(ipAddress) #put your code here to append the ipAddress to the invalid IP Addresses list
+                    print("Sorry, that is not a valid IP Address\n")
+                    break    #breaks out of for loop
+            else:            #executes after for loop is done, meaning no errors found
+                validIP = True
+                updated_devices_count += 1
+                updated_devices.append(user_device)
+                updated_devices.append(ipAddress)
+                #summary outputs
+
+if user_device in getDictionaries() == 'x':
+    getSummary()
+
+def getSummary():
+    
+    print(user_device, "was updated; the new IP address is", ipAddress)
+    print("Summary: \n")
+    print()
+    print()
+    print("Number of devices updated: ", updated_devices_count)
+    print()
+    print()
+    print("Updated equipment", updated_devices)
+    print()
+    print("\nNumber of invalid addresses attempted:", invalidIPcount)
+    print("List of invalid addresses:", invalidIPipAddress)
+    print("\nThe updated router dictionary:\n", routers)
+    print("\nThe updated switches dictionary:\n", switches)
+
+    
+
+
+
+
+
+
+             
+
